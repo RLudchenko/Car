@@ -5,13 +5,21 @@ public class Car {
     private final LocalDate localDate = LocalDate.now();
     private String engineType;
     private int maxSpeed = 250;
-    private byte accelerationTime = 3;
+    private int accelerationTime = 3;
     private int passengerCapacity = 4;
     private int passengerQuantity = 0;
     private int currentSpeed = 0;
-    CarWheel carWheel1, carWheel2, carWheel3, carWheel4;
+
+    private CarWheel carWheel1 = new CarWheel();
+    private CarWheel carWheel2 = new CarWheel();
+    private CarWheel carWheel3 = new CarWheel();
+    private CarWheel carWheel4 = new CarWheel();
     private CarWheel[] wheels = { carWheel1, carWheel2, carWheel3, carWheel4 };
-    CarDoor carDoor1, carDoor2, carDoor3, carDoor4;
+
+    private CarDoor carDoor1 = new CarDoor();
+    private CarDoor carDoor2 = new CarDoor();
+    private CarDoor carDoor3 = new CarDoor();
+    private CarDoor carDoor4 = new CarDoor();
     private CarDoor[] doors = { carDoor1, carDoor2, carDoor3, carDoor4 };
 
     public LocalDate getLocalDateTime() {
@@ -34,11 +42,11 @@ public class Car {
         this.maxSpeed = maxSpeed;
     }
 
-    public byte getAccelerationTime() {
+    public int getAccelerationTime() {
         return accelerationTime;
     }
 
-    public void setAccelerationTime(byte accelerationTime) {
+    public void setAccelerationTime(int accelerationTime) {
         this.accelerationTime = accelerationTime;
     }
 
@@ -102,20 +110,31 @@ public class Car {
         passengerQuantity -= 1;
     }
 
-    public void getDoorByIndex(int index) {
+    public CarDoor getDoorByIndex(int index) {
         if (index > doors.length) {
             System.out.println("Such door doesn't exist");
-            return;
+            return null;
         }
-        System.out.println("You chose a door number: " + index);
+
+        Car car = new Car();
+        car.setDoors(doors);
+        CarDoor[] carDoors = car.getDoors();
+
+        return carDoors[index];
     }
 
-    public void getCarWheelByIndex(int index) {
-        if (index > wheels.length) {
+    public CarWheel getCarWheelByIndex(int index) {
+
+        if (index > this.wheels.length) {
             System.out.println("Such wheel doesn't exist");
-            return;
+            return null;
         }
-        System.out.println("You chose a wheel number: " + index);
+
+        Car car = new Car();
+        car.setWheels(wheels);
+        CarWheel[] carWheels = car.getWheels();
+
+        return carWheels[index];
     }
 
     public void removeAllWheels() {
@@ -130,12 +149,12 @@ public class Car {
         wheels = new CarWheel[wheels.length + wheelQuantity];
     }
 
-    public void currentMaxSpeed() {
+    public int currentMaxSpeed() {
         CarWheel carWheel = new CarWheel();
         int currMaxSpeed = maxSpeed;
 
         if (passengerQuantity == 0) {
-            return;
+            return 0;
         }
 
         for (CarWheel wheel : wheels) {
@@ -145,13 +164,14 @@ public class Car {
         }
 
         currMaxSpeed *= carWheel.getWheelCondition();
-        System.out.println("Current max speed of the car is " + currMaxSpeed);
+
+        return currMaxSpeed;
     }
 
     @Override
     public String toString() {
-        return "Car{" +
-                "localDate=" + localDate
+        return "Car{"
+                + "localDate=" + localDate
                 + ", engineType='" + engineType + '\''
                 + ", maxSpeed=" + maxSpeed
                 + ", accelerationTime=" + accelerationTime

@@ -15,7 +15,8 @@ public class CarWheel {
 
     public void wearOutTire(double percentage) {
         if (percentage > 100 || percentage < 0) {
-            System.out.println("Percentage for the wheel erasure cannot be more than 100 or less than 0!");
+            System.out.println("Percentage for the wheel erasure cannot "
+                    + "be more than 100 or less than 0!");
             return;
         }
 
