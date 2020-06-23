@@ -4,23 +4,40 @@ import java.util.Arrays;
 public class Car {
     private final LocalDate localDate = LocalDate.now();
     private String engineType;
-    private int maxSpeed = 250;
-    private int accelerationTime = 3;
-    private int passengerCapacity = 4;
-    private int passengerQuantity = 0;
-    private int currentSpeed = 0;
+    private int maxSpeed;
+    private int accelerationTime;
+    private int passengerCapacity;
+    private int passengerQuantity;
+    private int currentSpeed;
 
-    private CarWheel carWheel1 = new CarWheel();
-    private CarWheel carWheel2 = new CarWheel();
-    private CarWheel carWheel3 = new CarWheel();
-    private CarWheel carWheel4 = new CarWheel();
-    private CarWheel[] wheels = { carWheel1, carWheel2, carWheel3, carWheel4 };
+    private final CarWheel carWheel1;
+    private final CarWheel carWheel2;
+    private final CarWheel carWheel3;
+    private final CarWheel carWheel4;
+    private CarWheel[] wheels;
 
-    private CarDoor carDoor1 = new CarDoor();
-    private CarDoor carDoor2 = new CarDoor();
-    private CarDoor carDoor3 = new CarDoor();
-    private CarDoor carDoor4 = new CarDoor();
-    private CarDoor[] doors = { carDoor1, carDoor2, carDoor3, carDoor4 };
+    private CarDoor carDoor1;
+    private CarDoor carDoor2;
+    private CarDoor carDoor3;
+    private CarDoor carDoor4;
+    private CarDoor[] doors;
+
+    public Car(CarWheel carWheel1, CarWheel carWheel2,
+               CarWheel carWheel3, CarWheel carWheel4,
+               CarWheel[] wheels, CarDoor carDoor1,
+               CarDoor carDoor2, CarDoor carDoor3,
+               CarDoor carDoor4, CarDoor[] doors) {
+        this.carWheel1 = carWheel1;
+        this.carWheel2 = carWheel2;
+        this.carWheel3 = carWheel3;
+        this.carWheel4 = carWheel4;
+        this.wheels = wheels;
+        this.carDoor1 = carDoor1;
+        this.carDoor2 = carDoor2;
+        this.carDoor3 = carDoor3;
+        this.carDoor4 = carDoor4;
+        this.doors = doors;
+    }
 
     public LocalDate getLocalDateTime() {
         return localDate;
@@ -99,7 +116,8 @@ public class Car {
             System.out.println("Not possible to add more people!");
             return;
         }
-        passengerQuantity += 1;
+
+        passengerQuantity++;
     }
 
     public void removeOnePassenger() {
@@ -116,7 +134,8 @@ public class Car {
             return null;
         }
 
-        Car car = new Car();
+        Car car = new Car(carWheel1, carWheel2, carWheel3, carWheel4,
+                wheels, carDoor1, carDoor2, carDoor3, carDoor4, doors);
         car.setDoors(doors);
         CarDoor[] carDoors = car.getDoors();
 
@@ -130,7 +149,8 @@ public class Car {
             return null;
         }
 
-        Car car = new Car();
+        Car car = new Car(carWheel1, carWheel2, carWheel3, carWheel4,
+                wheels, carDoor1, carDoor2, carDoor3, carDoor4, doors);
         car.setWheels(wheels);
         CarWheel[] carWheels = car.getWheels();
 

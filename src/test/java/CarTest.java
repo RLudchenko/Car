@@ -2,18 +2,22 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class CarTest {
-    private Car car = new Car();
-    private static final Double DELTA = 0.0;
+    private static final Double DELTA = 0.00001;
     private final CarWheel carWheel1 = new CarWheel();
     private final CarWheel carWheel2 = new CarWheel();
     private final CarWheel carWheel3 = new CarWheel();
     private final CarWheel carWheel4 = new CarWheel();
     CarWheel[] wheels = { carWheel1, carWheel2, carWheel3, carWheel4 };
+
+
     private final CarDoor carDoor1 = new CarDoor();
     private final CarDoor carDoor2 = new CarDoor();
     private final CarDoor carDoor3 = new CarDoor();
     private final CarDoor carDoor4 = new CarDoor();
     private final CarDoor[] doors = { carDoor1, carDoor2, carDoor3, carDoor4 };
+
+    Car car = new Car(carWheel1, carWheel2, carWheel3, carWheel4,
+            wheels, carDoor1, carDoor2, carDoor3, carDoor4, doors);
 
     @Test
     public void addWheelsTest() {
@@ -28,6 +32,7 @@ public class CarTest {
 
     @Test
     public void addPassengerTest() {
+        car.setPassengerCapacity(4);
         car.addOnePassenger();
         car.addOnePassenger();
         Assert.assertEquals(2.0, car.getPassengerQuantity(), DELTA);
@@ -35,6 +40,7 @@ public class CarTest {
 
     @Test
     public void removePassengerTest() {
+        car.setPassengerCapacity(4);
         car.addOnePassenger();
         car.addOnePassenger();
         car.removeOnePassenger();
@@ -49,7 +55,9 @@ public class CarTest {
 
     @Test
     public void currentMaxSpeedTest() {
-        Car car1 = new Car();
+        Car car1 = new Car(carWheel1, carWheel2, carWheel3, carWheel4,
+                wheels, carDoor1, carDoor2, carDoor3, carDoor4, doors);
+        car1.setMaxSpeed(250);
         car1.addOnePassenger();
         car1.setWheels(wheels);
         car1.getCarWheelByIndex(2).wearOutTire(40);
