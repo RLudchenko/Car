@@ -68,6 +68,7 @@ public class Car {
             this.doors = doors;
             return this;
         }
+
         public Car build() {
             return new Car(this);
         }
@@ -177,8 +178,9 @@ public class Car {
 
     public double currentMaxSpeed(int maxSpeed) {
         double worseWheel = 0.0;
-        for(int i = 1; i < wheels.size(); i++){
-            if(wheels.get(i).getWheelCondition() < wheels.get(0).getWheelCondition()){
+
+        for (int i = 1; i < wheels.size(); i++) {
+            if (wheels.get(i).getWheelCondition() < wheels.get(0).getWheelCondition()) {
                 worseWheel = wheels.get(i).getWheelCondition();
             }
         }
