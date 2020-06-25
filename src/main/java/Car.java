@@ -1,5 +1,5 @@
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.List;
 
 public class Car {
     private final LocalDate localDate = LocalDate.now();
@@ -9,37 +9,71 @@ public class Car {
     private int passengerCapacity;
     private int passengerQuantity;
     private int currentSpeed;
+    private List<CarWheel> wheels;
+    private List<CarDoor> doors;
 
-    private final CarWheel carWheel1;
-    private final CarWheel carWheel2;
-    private final CarWheel carWheel3;
-    private final CarWheel carWheel4;
-    private CarWheel[] wheels;
-
-    private CarDoor carDoor1;
-    private CarDoor carDoor2;
-    private CarDoor carDoor3;
-    private CarDoor carDoor4;
-    private CarDoor[] doors;
-
-    public Car(CarWheel carWheel1, CarWheel carWheel2,
-               CarWheel carWheel3, CarWheel carWheel4,
-               CarWheel[] wheels, CarDoor carDoor1,
-               CarDoor carDoor2, CarDoor carDoor3,
-               CarDoor carDoor4, CarDoor[] doors) {
-        this.carWheel1 = carWheel1;
-        this.carWheel2 = carWheel2;
-        this.carWheel3 = carWheel3;
-        this.carWheel4 = carWheel4;
-        this.wheels = wheels;
-        this.carDoor1 = carDoor1;
-        this.carDoor2 = carDoor2;
-        this.carDoor3 = carDoor3;
-        this.carDoor4 = carDoor4;
-        this.doors = doors;
+    public Car(CarBuilder carBuilder) {
+        this.wheels = carBuilder.wheels;
+        this.doors = carBuilder.doors;
     }
 
-    public LocalDate getLocalDateTime() {
+    public static class CarBuilder {
+        private final LocalDate localDate = LocalDate.now();
+        private String engineType;
+        private int maxSpeed;
+        private int accelerationTime;
+        private int passengerCapacity;
+        private int passengerQuantity;
+        private int currentSpeed;
+
+        private List<CarWheel> wheels;
+        private List<CarDoor> doors;
+
+        public CarBuilder setEngineType(String engineType) {
+            this.engineType = engineType;
+            return this;
+        }
+
+        public CarBuilder setMaxSpeed(int maxSpeed) {
+            this.maxSpeed = maxSpeed;
+            return this;
+        }
+
+        public CarBuilder setAccelerationTime(int accelerationTime) {
+            this.accelerationTime = accelerationTime;
+            return this;
+        }
+
+        public CarBuilder setPassengerCapacity(int passengerCapacity) {
+            this.passengerCapacity = passengerCapacity;
+            return this;
+        }
+
+        public CarBuilder setPassengerQuantity(int passengerQuantity) {
+            this.passengerQuantity = passengerQuantity;
+            return this;
+        }
+
+        public CarBuilder setCurrentSpeed(int currentSpeed) {
+            this.currentSpeed = currentSpeed;
+            return this;
+        }
+
+        public CarBuilder setWheels(List<CarWheel> wheels) {
+            this.wheels = wheels;
+            return this;
+        }
+
+        public CarBuilder setDoors(List<CarDoor> doors) {
+            this.doors = doors;
+            return this;
+        }
+        public Car build() {
+            return new Car(this);
+        }
+    }
+
+    public LocalDate getLocalDate() {
         return localDate;
     }
 
@@ -91,101 +125,64 @@ public class Car {
         this.currentSpeed = currentSpeed;
     }
 
-    public CarWheel[] getWheels() {
+    public List<CarWheel> getWheels() {
         return wheels;
     }
 
-    public void setWheels(CarWheel[] wheels) {
+    public void setWheels(List<CarWheel> wheels) {
         this.wheels = wheels;
     }
 
-    public CarDoor[] getDoors() {
+    public List<CarDoor> getDoors() {
         return doors;
     }
 
-    public void setDoors(CarDoor[] doors) {
+    public void setDoors(List<CarDoor> doors) {
         this.doors = doors;
     }
 
-    public void changeCurrentSpeed() {
-        currentSpeed += 50;
+    public int putOnePassenger() {
+        return passengerQuantity++;
     }
 
-    public void addOnePassenger() {
-        if (passengerQuantity > passengerCapacity) {
-            System.out.println("Not possible to add more people!");
-            return;
-        }
-
-        passengerQuantity++;
+    public int removeOnePassenger() {
+        return passengerQuantity--;
     }
 
-    public void removeOnePassenger() {
-        if (passengerQuantity < 0) {
-            System.out.println("There's no one to remove from the car!");
-            return;
-        }
-        passengerQuantity -= 1;
+    public int removeAllPassengers() {
+        passengerQuantity = 0;
+        return passengerQuantity;
     }
 
     public CarDoor getDoorByIndex(int index) {
-        if (index > doors.length) {
-            System.out.println("Such door doesn't exist");
-            return null;
-        }
-
-        Car car = new Car(carWheel1, carWheel2, carWheel3, carWheel4,
-                wheels, carDoor1, carDoor2, carDoor3, carDoor4, doors);
-        car.setDoors(doors);
-        CarDoor[] carDoors = car.getDoors();
-
-        return carDoors[index];
+        return doors.get(index);
     }
 
-    public CarWheel getCarWheelByIndex(int index) {
-
-        if (index > this.wheels.length) {
-            System.out.println("Such wheel doesn't exist");
-            return null;
-        }
-
-        Car car = new Car(carWheel1, carWheel2, carWheel3, carWheel4,
-                wheels, carDoor1, carDoor2, carDoor3, carDoor4, doors);
-        car.setWheels(wheels);
-        CarWheel[] carWheels = car.getWheels();
-
-        return carWheels[index];
+    public CarWheel getWheelByIndex(int index) {
+        return wheels.get(index);
     }
 
-    public void removeAllWheels() {
-        wheels = new CarWheel[0];
+    public boolean removeAllWheels(List<CarWheel> wheels) {
+        wheels.clear();
+        return true;
     }
 
-    public void installWheels(int wheelQuantity) {
-        if (wheelQuantity < 1) {
-            System.out.println("Can't install!");
-            return;
+    public List<CarWheel> addWheels(int wheelQuantity) {
+        for (int i = 0; i < wheelQuantity; i++) {
+            wheels.add(new CarWheel());
         }
-        wheels = new CarWheel[wheels.length + wheelQuantity];
+
+        return wheels;
     }
 
-    public int currentMaxSpeed() {
-        CarWheel carWheel = new CarWheel();
-        int currMaxSpeed = maxSpeed;
-
-        if (passengerQuantity == 0) {
-            return 0;
-        }
-
-        for (CarWheel wheel : wheels) {
-            if (carWheel.getWheelCondition() > wheel.getWheelCondition()) {
-                carWheel.setWheelCondition(wheel.getWheelCondition());
+    public double currentMaxSpeed(int maxSpeed) {
+        double worseWheel = 0.0;
+        for(int i = 1; i < wheels.size(); i++){
+            if(wheels.get(i).getWheelCondition() < wheels.get(0).getWheelCondition()){
+                worseWheel = wheels.get(i).getWheelCondition();
             }
         }
-
-        currMaxSpeed *= carWheel.getWheelCondition();
-
-        return currMaxSpeed;
+        return passengerQuantity > 0 ? maxSpeed * worseWheel : 0.0;
     }
 
     @Override
@@ -198,16 +195,8 @@ public class Car {
                 + ", passengerCapacity=" + passengerCapacity
                 + ", passengerQuantity=" + passengerQuantity
                 + ", currentSpeed=" + currentSpeed
-                + ", carWheel1=" + carWheel1
-                + ", carWheel2=" + carWheel2
-                + ", carWheel3=" + carWheel3
-                + ", carWheel4=" + carWheel4
-                + ", wheels=" + Arrays.toString(wheels)
-                + ", carDoor1=" + carDoor1
-                + ", carDoor2=" + carDoor2
-                + ", carDoor3=" + carDoor3
-                + ", carDoor4=" + carDoor4
-                + ", doors=" + Arrays.toString(doors)
+                + ", wheels=" + wheels
+                + ", doors=" + doors
                 + '}';
     }
 }
