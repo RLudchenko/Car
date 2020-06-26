@@ -1,12 +1,25 @@
+package car.project.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class CarDoor {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID", nullable = false, unique = true, length = 11)
+    private Long carDoorId;
     private boolean openCarDoor;
     private boolean openCarWindow;
 
     public boolean isOpenCarDoor() {
         if (openCarDoor) {
-            System.out.println("Car door is opened!");
+            System.out.println("car.project.model.Car door is opened!");
         } else {
-            System.out.println("Car door is closed!");
+            System.out.println("car.project.model.Car door is closed!");
         }
         return openCarDoor;
     }
@@ -17,9 +30,9 @@ public class CarDoor {
 
     public boolean isOpenCarWindow() {
         if (openCarWindow) {
-            System.out.println("Car window is opened!");
+            System.out.println("car.project.model.Car window is opened!");
         } else {
-            System.out.println("Car window is closed!");
+            System.out.println("car.project.model.Car window is closed!");
         }
         return openCarWindow;
     }
@@ -41,10 +54,10 @@ public class CarDoor {
     public void openCloseCarDoor() {
         if (openCarDoor) {
             openCarDoor = false;
-            System.out.println("Car door was closed!");
+            System.out.println("car.project.model.Car door was closed!");
         } else {
             openCarDoor = true;
-            System.out.println("Car door was opened!");
+            System.out.println("car.project.model.Car door was opened!");
         }
     }
 
@@ -60,9 +73,9 @@ public class CarDoor {
 
     public boolean openCloseCarWindow() {
         if (openCarWindow) {
-            System.out.println("Car window is opened!");
+            System.out.println("car.project.model.Car window is opened!");
         } else {
-            System.out.println("Car window is closed!");
+            System.out.println("car.project.model.Car window is closed!");
         }
         return openCarWindow;
     }

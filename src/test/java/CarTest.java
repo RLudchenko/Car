@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
+import car.project.model.Car;
+import car.project.model.CarDoor;
+import car.project.model.CarWheel;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;

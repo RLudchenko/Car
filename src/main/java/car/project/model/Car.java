@@ -1,7 +1,24 @@
+package car.project.model;
+
 import java.time.LocalDate;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Entity
+@NoArgsConstructor
+@Data
 public class Car {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID", nullable = false, unique = true, length = 11)
+    private Long carId;
     private final LocalDate localDate = LocalDate.now();
     private String engineType;
     private int maxSpeed;
@@ -9,7 +26,10 @@ public class Car {
     private int passengerCapacity;
     private int passengerQuantity;
     private int currentSpeed;
+
+    @OneToMany
     private List<CarWheel> wheels;
+    @OneToMany
     private List<CarDoor> doors;
 
     public Car(CarBuilder carBuilder) {
@@ -18,7 +38,9 @@ public class Car {
     }
 
     public static class CarBuilder {
-        private final LocalDate localDate = LocalDate.now();
+        private Long id;
+        @Column(updatable = false)
+        private LocalDate localDate;
         private String engineType;
         private int maxSpeed;
         private int accelerationTime;
@@ -74,74 +96,6 @@ public class Car {
         }
     }
 
-    public LocalDate getLocalDate() {
-        return localDate;
-    }
-
-    public String getEngineType() {
-        return engineType;
-    }
-
-    public void setEngineType(String engineType) {
-        this.engineType = engineType;
-    }
-
-    public int getMaxSpeed() {
-        return maxSpeed;
-    }
-
-    public void setMaxSpeed(int maxSpeed) {
-        this.maxSpeed = maxSpeed;
-    }
-
-    public int getAccelerationTime() {
-        return accelerationTime;
-    }
-
-    public void setAccelerationTime(int accelerationTime) {
-        this.accelerationTime = accelerationTime;
-    }
-
-    public int getPassengerCapacity() {
-        return passengerCapacity;
-    }
-
-    public void setPassengerCapacity(int passengerCapacity) {
-        this.passengerCapacity = passengerCapacity;
-    }
-
-    public int getPassengerQuantity() {
-        return passengerQuantity;
-    }
-
-    public void setPassengerQuantity(int passengerQuantity) {
-        this.passengerQuantity = passengerQuantity;
-    }
-
-    public int getCurrentSpeed() {
-        return currentSpeed;
-    }
-
-    public void setCurrentSpeed(int currentSpeed) {
-        this.currentSpeed = currentSpeed;
-    }
-
-    public List<CarWheel> getWheels() {
-        return wheels;
-    }
-
-    public void setWheels(List<CarWheel> wheels) {
-        this.wheels = wheels;
-    }
-
-    public List<CarDoor> getDoors() {
-        return doors;
-    }
-
-    public void setDoors(List<CarDoor> doors) {
-        this.doors = doors;
-    }
-
     public int putOnePassenger() {
         return passengerQuantity++;
     }
@@ -185,20 +139,5 @@ public class Car {
             }
         }
         return passengerQuantity > 0 ? maxSpeed * worseWheel : 0.0;
-    }
-
-    @Override
-    public String toString() {
-        return "Car{"
-                + "localDate=" + localDate
-                + ", engineType='" + engineType + '\''
-                + ", maxSpeed=" + maxSpeed
-                + ", accelerationTime=" + accelerationTime
-                + ", passengerCapacity=" + passengerCapacity
-                + ", passengerQuantity=" + passengerQuantity
-                + ", currentSpeed=" + currentSpeed
-                + ", wheels=" + wheels
-                + ", doors=" + doors
-                + '}';
     }
 }
