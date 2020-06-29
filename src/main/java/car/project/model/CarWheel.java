@@ -1,4 +1,24 @@
+package car.project.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@Data
+@Entity
+@Table(name = "wheels")
 public class CarWheel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID", nullable = false, unique = true, length = 11)
+    private Long carWheelId;
+
     private double wheelCondition = 1.0;
 
     public double getWheelCondition() {
@@ -27,7 +47,7 @@ public class CarWheel {
 
     @Override
     public String toString() {
-        return "CarWheel{"
+        return "car.project.model.CarWheel{"
                 + "wheelCondition=" + wheelCondition
                 + '}';
     }
