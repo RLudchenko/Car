@@ -8,12 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @NoArgsConstructor
 @Data
+@Entity
+@Table(name = "cars")
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,6 +52,9 @@ public class Car {
 
         private List<CarWheel> wheels;
         private List<CarDoor> doors;
+
+        public CarBuilder() {
+        }
 
         public CarBuilder setEngineType(String engineType) {
             this.engineType = engineType;
@@ -93,6 +98,14 @@ public class Car {
 
         public Car build() {
             return new Car(this);
+        }
+
+        public LocalDate getLocalDate() {
+            return localDate;
+        }
+
+        public void setLocalDate(LocalDate localDate) {
+            this.localDate = localDate;
         }
     }
 

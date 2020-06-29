@@ -1,6 +1,6 @@
 package car.project;
 
-import car.project.lib.Injector;
+import car.project.config.AppConfig;
 import car.project.model.Car;
 import car.project.model.CarDoor;
 import car.project.model.CarWheel;
@@ -8,15 +8,18 @@ import car.project.service.CarDoorService;
 import car.project.service.CarService;
 import car.project.service.CarWheelService;
 import java.util.List;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main {
-    private static Injector injector = Injector.getInstance("car.project");
-    private static CarDoorService carDoorService
-            = (CarDoorService) injector.getInstance(CarDoorService.class);
-    private static CarService carService
-            = (CarService) injector.getInstance(CarService.class);
-    private static CarWheelService carWheelService
-            = (CarWheelService) injector.getInstance(CarWheelService.class);
+    private static final AnnotationConfigApplicationContext context =
+            new AnnotationConfigApplicationContext(AppConfig.class);
+
+    private static CarService carService =
+            (CarService) context.getBean(CarService.class);
+    private static final CarDoorService carDoorService =
+            (CarDoorService) context.getBean(CarDoorService.class);
+    private static final CarWheelService carWheelService =
+            (CarWheelService) context.getBean(CarWheelService.class);
 
     public static void main(String[] args) {
         CarDoor carDoor1 = new CarDoor();

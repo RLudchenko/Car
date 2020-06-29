@@ -1,16 +1,16 @@
 package car.project.service.impl;
 
 import car.project.dao.CarDoorDao;
-import car.project.lib.Inject;
-import car.project.lib.Service;
 import car.project.model.CarDoor;
 import car.project.service.CarDoorService;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class CarDoorServiceImpl implements CarDoorService {
-    @Inject
-    CarDoorDao carDoorDao;
+    private final CarDoorDao carDoorDao;
 
     @Override
     public CarDoor add(CarDoor carDoor) {
