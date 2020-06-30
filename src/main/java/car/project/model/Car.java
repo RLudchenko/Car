@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", nullable = false, unique = true, length = 11)
+    @Column(name = "ID", length = 11)
     private Long carId;
     private final LocalDate localDate = LocalDate.now();
     private String engineType;

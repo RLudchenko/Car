@@ -7,7 +7,7 @@ import car.project.model.dto.CarDoorResponseDto;
 import car.project.service.CarDoorService;
 import java.util.List;
 import java.util.stream.Collectors;
-import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/car-doors")
-@Data
 public class CarDoorController {
-    private final CarDoorService carDoorService;
-    private final CarDoorMapper carDoorMapper;
+    @Autowired
+    private CarDoorService carDoorService;
+    @Autowired
+    private CarDoorMapper carDoorMapper;
 
     @PostMapping
     public void addDoors(@RequestBody CarDoorRequestDto carDoorRequestDto) {

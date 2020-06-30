@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class CarDoor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", nullable = false, unique = true, length = 11)
+    @Column(name = "ID", length = 11)
     private Long carDoorId;
     private boolean openCarDoor;
     private boolean openCarWindow;

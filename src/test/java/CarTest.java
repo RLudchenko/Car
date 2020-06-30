@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 public class CarTest {
-    // small change
     private final double DELTA = 0.00001;
     private Car car;
     private List<CarWheel> wheels;

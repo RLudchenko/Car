@@ -7,7 +7,7 @@ import car.project.model.dto.CarWheelResponseDto;
 import car.project.service.CarWheelService;
 import java.util.List;
 import java.util.stream.Collectors;
-import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/car-wheels")
-@Data
 public class CarWheelController {
-    private final CarWheelService carWheelService;
-    private final CarWheelMapper carWheelMapper;
+    @Autowired
+    private CarWheelService carWheelService;
+    @Autowired
+    private CarWheelMapper carWheelMapper;
 
     @PostMapping
     public void addWheels(@RequestBody CarWheelRequestDto carWheelRequestDto) {
