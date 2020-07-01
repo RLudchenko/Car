@@ -4,6 +4,7 @@ import car.project.model.Car;
 import car.project.model.CarDoor;
 import car.project.model.CarWheel;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -13,7 +14,7 @@ public class CarTest {
     private List<CarWheel> wheels;
     private List<CarDoor> doors;
 
-    @BeforeEach
+    @Before
     public void init() {
         wheels = new ArrayList<>();
         doors = new ArrayList<>();
@@ -33,7 +34,6 @@ public class CarTest {
 
     @Test
     public void testRemoveOnePassenger() {
-        init();
         car.putOnePassenger();
         car.putOnePassenger();
         car.putOnePassenger();
@@ -45,7 +45,6 @@ public class CarTest {
 
     @Test
     public void testRemoveAllPassengers() {
-        init();
         car.putOnePassenger();
         car.putOnePassenger();
         car.putOnePassenger();
@@ -55,7 +54,6 @@ public class CarTest {
 
     @Test
     public void testGetDoorByIndex() {
-        init();
         doors.add(new CarDoor());
         doors.add(new CarDoor());
         doors.add(new CarDoor());
@@ -64,7 +62,6 @@ public class CarTest {
 
     @Test
     public void testGetWheelByIndex() {
-        init();
         wheels.add(new CarWheel());
         wheels.add(new CarWheel());
         wheels.add(new CarWheel());
@@ -74,13 +71,11 @@ public class CarTest {
 
     @Test
     public void testRemoveAllWheels() {
-        init();
         Assert.assertEquals(wheels.size() == 0, car.removeAllWheels(wheels));
     }
 
     @Test
     public void testAddWheels() {
-        init();
         car.addWheels(4);
         wheels.add(new CarWheel());
         wheels.add(new CarWheel());
@@ -89,7 +84,6 @@ public class CarTest {
 
     @Test
     public void testCurrentMaxSpeed() {
-        init();
         car.putOnePassenger();
         CarWheel carWheel = new CarWheel();
         carWheel.setWheelCondition(1.0);
